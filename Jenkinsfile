@@ -10,7 +10,7 @@ pipeline {
         }
         stage('DeployToStagingServer') {
             when {
-                branch 'master',
+                branch 'master'
                 echo 'Starting deploy to staging server'
             }
             steps {
