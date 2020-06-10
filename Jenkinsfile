@@ -29,7 +29,7 @@ pipeline {
                                         sourceFiles: 'dist/trainSchedule.zip',
                                         removePrefix: 'dist/',
                                         remoteDirectory: '/tmp',
-                                        execCommand: '/usr/bin/systemctl stop train-schedule && rm -rf /opt/train-schedule/* && unzip /tmp/trainSchedule.zip -d /opt/train-schedule && /usr/bin/systemctl start train-schedule'
+                                        execCommand: 'sudo /usr/bin/systemctl stop train-schedule && rm -rf /opt/train-schedule/* && unzip /tmp/trainSchedule.zip -d /opt/train-schedule && /usr/bin/systemctl start train-schedule'
                                     )
                                 ]
                             )                        
@@ -44,6 +44,7 @@ pipeline {
             }
             steps {
                 input 'Are you accept this step?'
+                milestone(1)
                 withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sshPublisher(
                         continueOnError: false,
@@ -60,7 +61,7 @@ pipeline {
                                         sourceFiles: 'dist/trainSchedule.zip',
                                         removePrefix: 'dist/',
                                         remoteDirectory: '/tmp',
-                                        execCommand: '/usr/bin/systemctl stop train-schedule && rm -rf /opt/train-schedule/* && unzip /tmp/trainSchedule.zip -d /opt/train-schedule && /usr/bin/systemctl start train-schedule'
+                                        execCommand: 'sudo /usr/bin/systemctl stop train-schedule && rm -rf /opt/train-schedule/* && unzip /tmp/trainSchedule.zip -d /opt/train-schedule && /usr/bin/systemctl start train-schedule'
                                     )
                                 ]
                             )                        
