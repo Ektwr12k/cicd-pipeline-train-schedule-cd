@@ -11,7 +11,6 @@ pipeline {
         stage('DeployToStagingServer') {
             when {
                 branch 'master'
-                echo 'Starting deploy to staging server'
             }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
