@@ -13,9 +13,9 @@ pipeline {
                    branch 'master'
             }
             steps {
-                withCredentials([AccessToStagingServer(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVeriable: 'USERPASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVeriable: 'USERPASS')]) {
                    sshPublisher(
-                     FailOnError: true,
+                     failOnError: true,
                      continueOnError: false,
                      publishers: [
                            sshPublisherDesc(
@@ -45,9 +45,9 @@ pipeline {
             steps {
                 input 'Does the staging environment look OK?'
                 milestone(1)
-                withCredentials([AccessToProductionServer(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVeriable: 'USERPASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVeriable: 'USERPASS')]) {
                    sshPublisher(
-                     FailOnError: true,
+                     failOnError: true,
                      continueOnError: false,
                      publishers: [
                            sshPublisherDesc(
